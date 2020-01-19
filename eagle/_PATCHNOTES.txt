@@ -1,0 +1,5 @@
+-higher series resistor for optoc. -> powertarget
+-after optoc. 3v3 logic -> arduino due not 5V tolerant
+-inverting z- axis
+-higher series resistor for spindle pwm / otherwise pulse 20mA directly --> failed due to current not possible, modified to 0-5V 10kHz pwm
+-switched spindle control @optoc. signals because active low
