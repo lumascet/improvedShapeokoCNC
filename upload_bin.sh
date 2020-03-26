@@ -1,6 +1,6 @@
 #!/bin/bash
 set -x
-PORT=$(./find_port.py --vid 03eb)
+PORT=/dev/ttyACM0   #$(./find_port.py --vid Synthetos)
 
 # Activate the bootloader
 stty -F ${PORT} 1200 hup
