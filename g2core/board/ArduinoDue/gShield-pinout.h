@@ -66,7 +66,7 @@
 // So we have to explicity enable them as PWM pins.
 // Generated with:
 // perl -e 'for($i=1;$i<14;$i++) { print "#define OUTPUT${i}_PWM 0\n";}'
-#define OUTPUT1_PWM 1
+#define OUTPUT1_PWM 0
 #define OUTPUT2_PWM 0
 #define OUTPUT3_PWM 0
 #define OUTPUT4_PWM 0
