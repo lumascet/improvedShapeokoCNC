@@ -84,10 +84,10 @@
 #define STATUS_REPORT_INTERVAL_MS   250                     // milliseconds - set $SV=0 to disable
 
 //#define STATUS_REPORT_DEFAULTS "line","posx","posy","posz","posa","feed","vel","unit","coor","dist","admo","frmo","momo","stat"
-#define STATUS_REPORT_DEFAULTS "line","posx","posy","posz","feed","vel","momo","stat"
+#define STATUS_REPORT_DEFAULTS "line","mpox","mpoy","mpoz","posx","posy","posz","feed","vel","momo","stat","ofsx","ofsy","ofsz" ,"dist","unit", "homz","homy","homx", "_ts1","_cs1","_es1","_xs1","_fe1", "admo","frmo"
 
 // Alternate SRs that report in drawable units
-//#define STATUS_REPORT_DEFAULTS "line","vel","mpox","mpoy","mpoz","mpoa","coor","ofsa","ofsx","ofsy","ofsz","dist","unit","stat","homz","homy","homx","momo"
+//#define STATUS_REPORT_DEFAULTS "line","vel","mpox","mpoy","mpoz","mpoa","coor","ofsa","ofsx","ofsy","ofsz","unit","stat","homz","homy","homx","momo"
 //#define STATUS_REPORT_DEFAULTS "_ts1","_cs1","_es1","_xs1","_fe1","line","posx","posy","posz","vel","stat"
 
 // Gcode startup defaults
