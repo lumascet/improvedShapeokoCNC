@@ -8,4 +8,4 @@ stty -F ${PORT} 9600
 sleep 3
 
 # Program
-bossac -e -w -v -i -b -R g2/g2core/bin/DIY-gShield/g2core.bin
+bossac -e -w -v -i -b -R g2/g2core/bin/DIY-gShield/g2core.bin -p ACM0

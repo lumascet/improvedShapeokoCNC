@@ -50,6 +50,21 @@
 #define SPINDLE_SPEED_MAX           24000.0
 #define SPINDLE_SPEED_CHANGE_PER_MS 7.0
 
+#define SPINDLE_ENABLE_OUTPUT_NUMBER 	12
+#define SPINDLE_DIRECTION_OUTPUT_NUMBER 13
+#define SPINDLE_PWM_NUMBER 		11
+
+#define LASER_MIN_S 0
+#define LASER_MAX_S 0
+#define LASER_PULSE_DURATION 0
+#define LASER_MIN_PPM 0
+#define LASER_MAX_PPM 0
+
+#define HAS_LASER 0
+#define LASER_TOOL 0
+#define BASE_KINEMATICS 1
+#define LASER_FIRE_PIN_NUMBER 0
+
 #define P1_PWM_FREQUENCY                10000					// in Hz
 #define P1_CW_SPEED_LO                  0		    		// in RPM (arbitrary units)
 #define P1_CW_SPEED_HI                  24000
@@ -100,7 +115,7 @@
                                     "unit", "stat", "coor", "momo", "dist", \
                                     "home", "mots", "plan", "line", "path", \
                                     "frmo", "prbe", "safe", "estp", "spc", \
-                                    "hold", "macs", "cycs", "sps", "vel"
+                                    "hold", "macs", "cycs", "sps", "vel" , "sso", "mfo"
 
 
 //#define STATUS_REPORT_DEFAULTS "line","posx","posy","posz","posa","feed","vel","unit","coor","dist","admo","frmo","momo","stat"
@@ -288,5 +303,16 @@
 #define DI10_EXTERNAL_NUMBER         9
 
 // *** PWM SPINDLE CONTROL ***
+//Header Bed FET
+#ifndef DO11_ENABLED
+#define DO11_ENABLED                IO_ENABLED
+#endif
+#ifndef DO11_POLARITY
+#define DO11_POLARITY               IO_ACTIVE_LOW
+#endif
+#ifndef DO11_EXTERNAL_NUMBER
+#define DO11_EXTERNAL_NUMBER         11
+#endif
+
 
 
