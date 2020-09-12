@@ -50,6 +50,21 @@
 #define SPINDLE_SPEED_MAX           24000.0
 #define SPINDLE_SPEED_CHANGE_PER_MS 7.0
 
+#define SPINDLE_ENABLE_OUTPUT_NUMBER 	12
+#define SPINDLE_DIRECTION_OUTPUT_NUMBER 13
+#define SPINDLE_PWM_NUMBER 		11
+
+#define LASER_MIN_S 0
+#define LASER_MAX_S 0
+#define LASER_PULSE_DURATION 0
+#define LASER_MIN_PPM 0
+#define LASER_MAX_PPM 0
+
+#define HAS_LASER 0
+#define LASER_TOOL 0
+#define BASE_KINEMATICS 1
+#define LASER_FIRE_PIN_NUMBER 0
+
 #define P1_PWM_FREQUENCY                10000					// in Hz
 #define P1_CW_SPEED_LO                  0		    		// in RPM (arbitrary units)
 #define P1_CW_SPEED_HI                  24000
@@ -71,7 +86,7 @@
 #define FEEDHOLD_Z_LIFT             -1       // mm to lift Z on feedhold, or -1 to go to Z-max
 #define PROBE_REPORT_ENABLE         true
 
-#define MANUAL_FEEDRATE_OVERRIDE_ENABLE true
+#define MANUAL_FEEDRATE_OVERRIDE_ENABLE false
 // Switch definitions for interlock & E-stop
 #define ENABLE_INTERLOCK_AND_ESTOP
 #define INTERLOCK_SWITCH_INPUT          4   // DI4
@@ -100,7 +115,7 @@
                                     "unit", "stat", "coor", "momo", "dist", \
                                     "home", "mots", "plan", "line", "path", \
                                     "frmo", "prbe", "safe", "estp", "spc", \
-                                    "hold", "macs", "cycs", "sps", "vel"
+                                    "hold", "macs", "cycs", "sps", "vel" , "sso", "mfo"
 
 
 //#define STATUS_REPORT_DEFAULTS "line","posx","posy","posz","posa","feed","vel","unit","coor","dist","admo","frmo","momo","stat"
@@ -162,27 +177,29 @@
 
 // *** axis settings **********************************************************************************
 
-#define TRAVEL_RATIO				(TRAVEL_PER_REV_Z/TRAVEL_PER_REV_XY)
-#define VELOCITY_HOMING_RATIO		0.66
-#define VELOCITY_LATCH_RATIO		0.1
-#define JERK_MAX                    10000
-#define JERK_HIGH_SPEED             (JERK_MAX * 5)
-#define VELOCITY_XY					40000
-#define VELOCITY_Z					800
-#define LATCH_BACKOFF				4 
-#define ZERO_BACKOFF				4
+#define TRAVEL_RATIO				    (TRAVEL_PER_REV_Z/TRAVEL_PER_REV_XY)
+#define VELOCITY_HOMING_RATIO		0.8
+#define VELOCITY_LATCH_RATIO		0.2
+#define JERK_MAX_XY             7000
+#define JERK_MAX_Z              50
+#define JERK_HIGH_SPEED_XY      JERK_MAX_XY * 2
+#define JERK_HIGH_SPEED_Z       JERK_MAX_Z * 2
+#define VELOCITY_XY					    5000
+#define VELOCITY_Z					    800
+#define LATCH_BACKOFF				    4 
+#define ZERO_BACKOFF				    4
 
 #define X_AXIS_MODE                 AXIS_STANDARD								// xam  see canonical_machine.h cmAxisMode for valid values
 #define X_VELOCITY_MAX              VELOCITY_XY									// xvm  G0 max velocity in mm/min
 #define X_FEEDRATE_MAX              X_VELOCITY_MAX								// xfr  G1 max feed rate in mm/min
 #define X_TRAVEL_MIN                0											// xtn  minimum travel for soft limits
 #define X_TRAVEL_MAX                280											// xtm  travel between switches or crashes
-#define X_JERK_MAX                  JERK_MAX									// xjm  jerk * 1,000,000
-#define X_JERK_HIGH_SPEED           JERK_HIGH_SPEED									// xjh  Jerk used during homing operations
+#define X_JERK_MAX                  JERK_MAX_XY									// xjm  jerk * 1,000,000
+#define X_JERK_HIGH_SPEED           JERK_HIGH_SPEED_XY									// xjh  Jerk used during homing operations
 #define X_HOMING_INPUT              1											// xhi  input used for homing or 0 to disable
 #define X_HOMING_DIRECTION          0											// xhd  0=search moves negative, 1= search moves positive
-#define X_SEARCH_VELOCITY           (X_VELOCITY_MAX * VELOCITY_HOMING_RATIO * TRAVEL_RATIO * 5)    // xsv  minus means move to minimum switch
-#define X_LATCH_VELOCITY            (X_VELOCITY_MAX * VELOCITY_LATCH_RATIO * TRAVEL_RATIO)     // xlv  mm/min Homing speed during latch phase (drive off switch)
+#define X_SEARCH_VELOCITY           (X_VELOCITY_MAX * VELOCITY_HOMING_RATIO)    // xsv  minus means move to minimum switch
+#define X_LATCH_VELOCITY            (X_VELOCITY_MAX * VELOCITY_LATCH_RATIO)     // xlv  mm/min Homing speed during latch phase (drive off switch)
 #define X_LATCH_BACKOFF             LATCH_BACKOFF								// xlb  mm Maximum distance to back off switch during latch phase (drive off switch)
 #define X_ZERO_BACKOFF              ZERO_BACKOFF								// xzb  mm Offset from switch for zero in absolute coordinates
 
@@ -191,12 +208,12 @@
 #define Y_FEEDRATE_MAX              Y_VELOCITY_MAX
 #define Y_TRAVEL_MIN                0
 #define Y_TRAVEL_MAX                280
-#define Y_JERK_MAX                  JERK_MAX
-#define Y_JERK_HIGH_SPEED           JERK_HIGH_SPEED
+#define Y_JERK_MAX                  JERK_MAX_XY
+#define Y_JERK_HIGH_SPEED           JERK_HIGH_SPEED_XY
 #define Y_HOMING_INPUT              4			//ymax
 #define Y_HOMING_DIRECTION          1
-#define Y_SEARCH_VELOCITY           (Y_VELOCITY_MAX * VELOCITY_HOMING_RATIO * TRAVEL_RATIO * 5)
-#define Y_LATCH_VELOCITY            (Y_VELOCITY_MAX * VELOCITY_LATCH_RATIO * TRAVEL_RATIO)
+#define Y_SEARCH_VELOCITY           (Y_VELOCITY_MAX * VELOCITY_HOMING_RATIO)
+#define Y_LATCH_VELOCITY            (Y_VELOCITY_MAX * VELOCITY_LATCH_RATIO)
 #define Y_LATCH_BACKOFF             LATCH_BACKOFF
 #define Y_ZERO_BACKOFF              ZERO_BACKOFF
 
@@ -205,8 +222,8 @@
 #define Z_FEEDRATE_MAX              Z_VELOCITY_MAX
 #define Z_TRAVEL_MAX                0
 #define Z_TRAVEL_MIN                -90
-#define Z_JERK_MAX                  (JERK_MAX * TRAVEL_RATIO)
-#define Z_JERK_HIGH_SPEED           (JERK_HIGH_SPEED *  TRAVEL_RATIO)
+#define Z_JERK_MAX                  JERK_MAX_Z
+#define Z_JERK_HIGH_SPEED           JERK_HIGH_SPEED_Z
 #define Z_HOMING_INPUT              6			//zmax
 #define Z_HOMING_DIRECTION          1
 #define Z_SEARCH_VELOCITY           (Z_VELOCITY_MAX * VELOCITY_HOMING_RATIO)
@@ -288,5 +305,16 @@
 #define DI10_EXTERNAL_NUMBER         9
 
 // *** PWM SPINDLE CONTROL ***
+//Header Bed FET
+#ifndef DO11_ENABLED
+#define DO11_ENABLED                IO_ENABLED
+#endif
+#ifndef DO11_POLARITY
+#define DO11_POLARITY               IO_ACTIVE_LOW
+#endif
+#ifndef DO11_EXTERNAL_NUMBER
+#define DO11_EXTERNAL_NUMBER         11
+#endif
+
 
 
